@@ -9,7 +9,7 @@
  */
 
 function doGet(e) {
-  const action = e.parameter.action;
+  const action = (e.parameter.action || '').toLowerCase();
   
   if (action === 'links') {
     return getLinks();
@@ -44,8 +44,7 @@ function getLinks() {
       .sort((a, b) => (parseInt(a.sort_order) || 0) - (parseInt(b.sort_order) || 0)); // Sort by order
       
     return ContentService.createTextOutput(JSON.stringify(links))
-      .setMimeType(ContentService.MimeType.JSON)
-      .setXFrameOptionsMode(ContentService.XFrameOptionsMode.ALLOWALL); // CORS support
+      .setMimeType(ContentService.MimeType.JSON);
       
   } catch (error) {
     return ContentService.createTextOutput(JSON.stringify({ error: error.message }))
