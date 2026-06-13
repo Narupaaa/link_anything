@@ -19,6 +19,47 @@ function doGet(e) {
     .setMimeType(ContentService.MimeType.JSON);
 }
 
+/**
+ * Handle POST requests to add new data
+ */
+function doPost(e) {
+  const ADMIN_KEY = '1234'; // เปลี่ยนรหัสผ่านตรงนี้
+  
+  try {
+    const data = JSON.parse(e.postData.contents);
+    
+    // Check Security Key
+    if (data.adminKey !== ADMIN_KEY) {
+      throw new Error('Invalid Admin Key');
+    }
+    
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = ss.getSheetByName('Links');
+    
+    // Append row: id, name, description, url, icon, category, role, color, sort_order, status, created_at
+    sheet.appendRow([
+      Date.now(), // Use timestamp as ID
+      data.name,
+      data.description,
+      data.url,
+      data.icon || 'bi-link-45deg',
+      data.category || 'General',
+      '', // role
+      data.color || 'primary',
+      data.sort_order || 0,
+      'active',
+      new Date()
+    ]);
+    
+    return ContentService.createTextOutput(JSON.stringify({ status: 'success', message: 'Link added successfully' }))
+      .setMimeType(ContentService.MimeType.JSON);
+      
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({ status: 'error', message: error.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
 function getLinks() {
   try {
     const ss = SpreadsheetApp.getActiveSpreadsheet();

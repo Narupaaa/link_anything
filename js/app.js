@@ -206,6 +206,60 @@ function setupEventListeners() {
     categoryFilter.addEventListener('change', handleFilter);
     sortOrder.addEventListener('change', handleFilter);
     themeToggle.addEventListener('click', toggleTheme);
+
+    // Add Link Form Submission
+    const addLinkForm = document.getElementById('addLinkForm');
+    if (addLinkForm) {
+        addLinkForm.addEventListener('submit', handleAddLink);
+    }
+}
+
+/**
+ * Handle Add Link Form Submission
+ */
+async function handleAddLink(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const saveBtn = document.getElementById('saveBtn');
+    const spinner = document.getElementById('saveBtnSpinner');
+    
+    // Disable button and show spinner
+    saveBtn.disabled = true;
+    spinner.classList.remove('d-none');
+
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (result.status === 'success') {
+            alert('Success: Link added successfully!');
+            
+            // Reset form and close modal
+            form.reset();
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addLinkModal'));
+            modal.hide();
+            
+            // Refresh data
+            loadingSpinner.classList.remove('d-none');
+            await fetchData();
+        } else {
+            alert(`Error: ${result.message}`);
+        }
+    } catch (error) {
+        console.error('Submission error:', error);
+        alert('Error: Failed to connect to API.');
+    } finally {
+        saveBtn.disabled = false;
+        spinner.classList.add('d-none');
+    }
 }
 
 /**
