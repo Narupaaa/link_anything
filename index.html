@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Org Portal | Dashboard</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="assets/logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top me-2" onerror="this.src='https://via.placeholder.com/30'">
+                <span class="fw-bold">Org Portal</span>
+            </a>
+            <div class="d-flex align-items-center">
+                <button id="themeToggle" class="btn btn-link text-body p-0 me-3" title="Toggle Dark/Light Mode">
+                    <i class="bi bi-sun-fill fs-4" id="themeIcon"></i>
+                </button>
+                <span class="badge bg-secondary rounded-pill d-none d-sm-inline-block">v1.0.0</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-4">
+        <!-- Statistics Summary -->
+        <div class="row g-3 mb-4 text-center">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="text-muted mb-1">Total Links</h6>
+                        <h3 id="statTotalLinks" class="fw-bold mb-0">-</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="text-muted mb-1">Categories</h6>
+                        <h3 id="statTotalCategories" class="fw-bold mb-0">-</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="text-muted mb-1">Active Systems</h6>
+                        <h3 id="statActiveSystems" class="fw-bold mb-0">-</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="row g-3 mb-4 align-items-center">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+                    <input type="text" id="searchInput" class="form-control border-start-0 ps-0" placeholder="Search systems, descriptions, or categories...">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex gap-2 justify-content-md-end">
+                    <select id="categoryFilter" class="form-select w-auto">
+                        <option value="all">All Categories</option>
+                    </select>
+                    <select id="sortOrder" class="form-select w-auto">
+                        <option value="default">Sort: Default</option>
+                        <option value="name">Sort: Name</option>
+                        <option value="category">Sort: Category</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loading" class="text-center my-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2 text-muted">Fetching systems data...</p>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="alert alert-danger d-none" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <span id="errorText">Failed to load data. Please check your API URL.</span>
+        </div>
+
+        <!-- Card Grid -->
+        <div id="linkGrid" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <!-- Cards will be injected here -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="container py-4 mt-5 border-top">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="text-muted mb-0">&copy; 2024 Your Organization. All rights reserved.</p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <small class="text-muted">Last Updated: <span id="lastUpdated">-</span></small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/app.js"></script>
+</body>
+</html>
