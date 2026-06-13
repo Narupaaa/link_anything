@@ -47,7 +47,12 @@ async function fetchData() {
     }
 
     try {
-        const response = await fetch(`${API_URL}?action=links`);
+        const response = await fetch(`${API_URL}?action=links`, {
+            method: 'GET',
+            mode: 'cors',
+            redirect: 'follow'
+        });
+        
         if (!response.ok) throw new Error('Network response was not ok');
         
         const data = await response.json();
