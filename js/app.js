@@ -4,7 +4,8 @@
  */
 
 // CONFIGURATION: Replace with your Google Apps Script Web App URL
-const API_URL = 'https://script.google.com/macros/s/AKfycbwIXeYLE1hISWyvvmdgiGG8dZkNm8-hNuzvXbUVRYf7Hs-OFIRys8rULB4JLWcnCH0a/exec'; 
+const API_URL = 'https://script.google.com/macros/s/AKfycbx0ghSRNS0M4vodrwgnvwdiC_Eb17Njq3Yv8v_frVpXL4WvVcUCBGTfZEeQgwH0zMHi/exec'; 
+
 
 // State Management
 let allLinks = [];
